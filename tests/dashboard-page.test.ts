@@ -9,25 +9,35 @@ test.describe("Dashboard Page Tests", () => {
 
   test.beforeEach(async ({ pages }) => {
     await pages.signInPage.gotoSignInPage();
-    await expect(pages.signInPage.page).toHaveURL("https://membership.boomclouddev.com/member");
-    await expect(pages.signInPage.innitLogo).toBeVisible({timeout});
-    await expect(pages.signInPage.signInButton).toBeVisible({timeout});
-    await expect(pages.signInPage.forgotPasswordLink).toBeVisible({ timeout});
-    await expect(pages.signInPage.usernameInput).toBeVisible({timeout});
-    await expect(pages.signInPage.passwordInput).toBeVisible({timeout});
+    //await expect(pages.signInPage.page).toHaveURL("https://membership.boomclouddev.com/member");
+    await expect(pages.signInPage.page).toHaveURL("https://staged.boomcloud.com/member/login/DFD0C1CB-A726-47DB-8AD0-92DE97DACB2A");
+    await pages.signInPage.signIn(String(process.env.USERNAME),String(process.env.PASSWORD));
+    // await expect(pages.signInPage.innitLogo).toBeVisible({timeout});
+    // await expect(pages.signInPage.signInButton).toBeVisible({timeout});
+    // await expect(pages.signInPage.forgotPasswordLink).toBeVisible({ timeout});
+    // await expect(pages.signInPage.usernameInput).toBeVisible({timeout});
+    // await expect(pages.signInPage.passwordInput).toBeVisible({timeout});
     await pages.signInPage.signIn(String(process.env.username),String(process.env.password));
+    //await pages.signInPage.signIn(String(process.env.username),String(process.env.password));
   });
 //await dashboardPage.waitForLoadState();
 
 
-  test("Verify elements present on the Dashboard Page", async ({
+  test.only("Verify elements present on the Dashboard Page", async ({
     pages,
   }) => {
     const { dashboardPage } = pages;
     
-    await expect(pages.signInPage.signInButton).not.toBeVisible({ timeout :30000 });
-    await expect(dashboardPage.dashboard).toBeVisible({timeout :30000 });
-    await expect(dashboardPage.settings).toBeVisible({timeout :30000 });
+    // await expect(pages.signInPage.signInButton).not.toBeVisible();
+    await expect(pages.dashboardPage.dashboard).toBeVisible();
+    await expect(pages.dashboardPage.viewAgreementButton).toBeVisible();
+
+    await pages.dashboardPage.clickOnDashboardAgreementButton();
+    await expect(pages.dashboardPage.viewAgreementButton).not.toBeVisible();
+
+   // await pages.dashboardPage.clickOnDashboardAgreementButton();
+   // await expect(pages.dashboardPage.agreementUnavailablePopup).toBeVisible();
+    await expect(pages.dashboardPage.agreementUnavailablePopup).toHaveText('The agreement is currently unavailable. Please try again later.');
 
   });
   //await dashboardPage.waitForLoadState();

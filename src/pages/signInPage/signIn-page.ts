@@ -22,12 +22,12 @@ export class SignInPage {
     this.usernameInput = page.locator("#username");
     this.passwordInput = page.locator("#password")
     this.signInButton = page.getByRole('button', { name: 'Login' });
-    this.viewAgreementButton = page.getByRole('button', { name: 'View Agreement' });
+  
 
 
 
-    this.innitLogo = page.locator("//img[@alt='LOGO']")
-    this.dashboard = page.locator("//h6[@class='MuiTypography-root MuiTypography-h6 css-szh2o-MuiTypography-root']//span")
+    this.innitLogo = page.locator("//img[@alt='LOGO']");
+    this.dashboard = page.getByRole('heading', { name: 'Dashboard' });
     this.forgotPasswordLink = page.locator("//a[text()='Forgot password?']")
     this.leftSidebarLogo = page.getByRole('img', { name: 'Logo' })
     this.radioButton = page.getByTestId('CircleIcon');
