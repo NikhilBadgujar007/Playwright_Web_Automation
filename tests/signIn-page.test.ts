@@ -10,13 +10,14 @@ test.describe("Sign-In Page Tests", () => {
     await pages.signInPage.gotoSignInPage();
   });
 
-  test.only("Verify elements present on the login page", async ({
+  test("Verify elements present on the login page", async ({
     pages,
   }) => {
     const { signInPage } = pages;
     await expect(signInPage.page).toHaveURL("https://staged.boomcloud.com/member/login/DFD0C1CB-A726-47DB-8AD0-92DE97DACB2A");
    // await expect(signInPage.innitLogo).toBeVisible({timeout});
     await signInPage.signIn(String(process.env.USERNAME),String(process.env.PASSWORD));
+    await signInPage.page.waitForTimeout(1000000);
     await expect(signInPage.viewAgreementButton).not.toBeVisible({ timeout});
   });
 

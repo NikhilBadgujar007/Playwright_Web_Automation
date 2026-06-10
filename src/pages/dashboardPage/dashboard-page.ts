@@ -23,6 +23,10 @@ export class DashboardPage {
   readonly membersMenu : Locator
   readonly paymentsMenu : Locator
   readonly financingMenu : Locator
+  readonly dashboardAgreementButton : Locator
+  readonly agreementUnavailablePopup : Locator
+  readonly viewAgreementButton : Locator
+
 
   constructor(page:Page) {
     this.page = page;
@@ -43,7 +47,9 @@ export class DashboardPage {
     this.membersMenu = page.getByRole('button', { name: 'Members' })
     this.paymentsMenu = page.getByRole('button', { name: 'Payments' })
     this.financingMenu =  page.getByRole('button', { name: 'Financing' })
-  
+    this.dashboardAgreementButton = page.getByRole('button', { name: 'View Agreement' });
+    this.agreementUnavailablePopup = page.locator('#swal2-html-container');
+    this.viewAgreementButton = page.getByRole('button', { name: 'View Agreement' });
   }
 
   async gotoSignInPage() {
@@ -62,5 +68,14 @@ export class DashboardPage {
     await this.logoutButton.click();
     await this.page.waitForLoadState();
   }
+
+
+  async clickOnDashboardAgreementButton() {
+    await this.viewAgreementButton.waitFor({state: 'visible'} );
+    await this.viewAgreementButton.click();
+    await this.agreementUnavailablePopup.waitFor({state: 'visible'} );
+  }
+
+
 }
 
